@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>AgileLog - Kanban de Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🧠 AgileLog - Gerenciador Ágil de Tarefas</h1>
+
+    <form action="/adicionar" method="POST" class="formulario">
+        <input type="text" name="titulo" placeholder="Nova tarefa..." required>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <div class="kanban">
+        <div class="coluna">
+            <h2>📋 A Fazer</h2>
+            {% for t in tarefas if t.status == "A Fazer" %}
+                <div class="tarefa">
+                    <p>{{ t.titulo }}</p>
+                    <a href="/atualizar/{{t.id}}/Em Progresso">Mover ➡️</a>
+                    <a href="/excluir/{{t.id}}" class="excluir">🗑️</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="coluna">
+            <h2>⚙️ Em Progresso</h2>
+            {% for t in tarefas if t.status == "Em Progresso" %}
+                <div class="tarefa">
+                    <p>{{ t.titulo }}</p>
+                    <a href="/atualizar/{{t.id}}/Concluído">✅ Concluir</a>
+                    <a href="/excluir/{{t.id}}" class="excluir">🗑️</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="coluna">
+            <h2>✅ Concluído</h2>
+            {% for t in tarefas if t.status == "Concluído" %}
+                <div class="tarefa concluida">
+                    <p>{{ t.titulo }}</p>
+                    <a href="/excluir/{{t.id}}" class="excluir">🗑️</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

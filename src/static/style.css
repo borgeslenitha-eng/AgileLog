@@ -1,0 +1,68 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #004aad;
+}
+
+.formulario {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #004aad;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.kanban {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.coluna {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.tarefa {
+    background-color: #e8f0ff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.tarefa.concluida {
+    background-color: #d4f8d4;
+}
+
+a {
+    text-decoration: none;
+    color: #004aad;
+    font-size: 14px;
+}
+
+a.excluir {
+    color: red;
+    margin-left: 10px;
+}
+
