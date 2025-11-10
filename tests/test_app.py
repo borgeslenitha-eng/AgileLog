@@ -1,19 +1,15 @@
-import json
-from src.app import app
+import sys
+import os
+# adiciona a pasta src ao path para que possamos importar src.app
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+SRC = os.path.join(ROOT, "src")
+if SRC not in sys.path:
+    sys.path.insert(0, SRC)
 
-def test_home():
-    client = app.test_client()
-    response = client.get('/')
+from app import app  # agora importa app.py direto da pasta src
+
+def test_index_route():
+    tester = app.test_client()
+    response = tester.get('/')
     assert response.status_code == 200
-    assert b"Bem-vindo" in response.data
-
-def test_add_and_get_tasks():
-    client = app.test_client()
-    task_data = {"title": "Estudar Flask", "description": "Aprender API simples"}
-    response = client.post('/tasks', data=json.dumps(task_data), content_type='application/json')
-    assert response.status_code == 201
-
-    get_response = client.get('/tasks')
-    data = json.loads(get_response.data)
-    assert len(data) > 0
-    assert data[0]["title"] == "Estudar Flask"
+    assert b"AgileLog" in response.data

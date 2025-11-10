@@ -2,46 +2,54 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>AgileLog - Kanban de Tarefas</title>
+    <title>AgileLog - Gestão de Entregas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>🧠 AgileLog - Gerenciador Ágil de Tarefas</h1>
+    <h1>🚚 AgileLog - Sistema de Gestão de Entregas</h1>
 
     <form action="/adicionar" method="POST" class="formulario">
-        <input type="text" name="titulo" placeholder="Nova tarefa..." required>
-        <button type="submit">Adicionar</button>
+        <input type="text" name="descricao" placeholder="Descrição da entrega (ex: Pedido #123)" required>
+        <input type="text" name="responsavel" placeholder="Motorista responsável" required>
+        <input type="text" name="endereco" placeholder="Endereço da entrega" required>
+        <button type="submit">Adicionar entrega</button>
     </form>
 
     <div class="kanban">
         <div class="coluna">
-            <h2>📋 A Fazer</h2>
-            {% for t in tarefas if t.status == "A Fazer" %}
+            <h2>📦 Aguardando Coleta</h2>
+            {% for t in tarefas if t.status == "Aguardando Coleta" %}
                 <div class="tarefa">
-                    <p>{{ t.titulo }}</p>
-                    <a href="/atualizar/{{t.id}}/Em Progresso">Mover ➡️</a>
-                    <a href="/excluir/{{t.id}}" class="excluir">🗑️</a>
+                    <strong>{{ t.descricao }}</strong><br>
+                    <small>Motorista: {{ t.responsavel }}</small><br>
+                    <small>Endereço: {{ t.endereco }}</small><br>
+                    <a href="/atualizar/{{t.id}}/Em Transporte">➡️ Em Transporte</a> |
+                    <a href="/excluir/{{t.id}}">❌ Excluir</a>
                 </div>
             {% endfor %}
         </div>
 
         <div class="coluna">
-            <h2>⚙️ Em Progresso</h2>
-            {% for t in tarefas if t.status == "Em Progresso" %}
+            <h2>🚚 Em Transporte</h2>
+            {% for t in tarefas if t.status == "Em Transporte" %}
                 <div class="tarefa">
-                    <p>{{ t.titulo }}</p>
-                    <a href="/atualizar/{{t.id}}/Concluído">✅ Concluir</a>
-                    <a href="/excluir/{{t.id}}" class="excluir">🗑️</a>
+                    <strong>{{ t.descricao }}</strong><br>
+                    <small>Motorista: {{ t.responsavel }}</small><br>
+                    <small>Endereço: {{ t.endereco }}</small><br>
+                    <a href="/atualizar/{{t.id}}/Entregue">✅ Marcar como Entregue</a> |
+                    <a href="/excluir/{{t.id}}">❌ Excluir</a>
                 </div>
             {% endfor %}
         </div>
 
         <div class="coluna">
-            <h2>✅ Concluído</h2>
-            {% for t in tarefas if t.status == "Concluído" %}
+            <h2>✅ Entregue</h2>
+            {% for t in tarefas if t.status == "Entregue" %}
                 <div class="tarefa concluida">
-                    <p>{{ t.titulo }}</p>
-                    <a href="/excluir/{{t.id}}" class="excluir">🗑️</a>
+                    <strong>{{ t.descricao }}</strong><br>
+                    <small>Motorista: {{ t.responsavel }}</small><br>
+                    <small>Endereço: {{ t.endereco }}</small><br>
+                    <a href="/excluir/{{t.id}}">🗑️ Remover</a>
                 </div>
             {% endfor %}
         </div>
